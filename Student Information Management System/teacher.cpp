@@ -10,7 +10,7 @@ teacher::~teacher()
 
 }
 
-teacher::teacher(const teacher& tea) :person(tea)
+teacher::teacher(const teacher& tea) :user(tea)
 {
 
 }

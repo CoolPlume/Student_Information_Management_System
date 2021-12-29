@@ -2,7 +2,7 @@
 #include <iostream>
 #include <cstdlib>
 
-enum error_code_Type
+enum class error_code_Type
 {
 	Open_failed = 1,
 	Illegal_file = 2

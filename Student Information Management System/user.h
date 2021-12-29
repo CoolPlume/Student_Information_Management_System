@@ -17,5 +17,6 @@ public:
 	user();
 	virtual ~user();
 	user(const user&);
+	void change_gender(int);
 	int oouthout();
 };

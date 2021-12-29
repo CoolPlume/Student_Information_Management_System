@@ -1,6 +1,7 @@
 #pragma once
-#include "person.h"
-class teacher :public person
+#include "user.h"
+
+class teacher :public user
 {
 private:
 

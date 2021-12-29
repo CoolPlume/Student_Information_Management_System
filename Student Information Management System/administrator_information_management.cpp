@@ -1,7 +1,7 @@
 #pragma once
 #include "administrator_information_management.h"
 
-std::vector <std::string> storage_field_description =
+std::vector <std::string> administrator_storage_field_description =
 {
 	" ",
 	"Username:",
@@ -10,7 +10,7 @@ std::vector <std::string> storage_field_description =
 	"END"
 };
 
-enum storage_field_Type
+enum class administrator_storage_field_Type
 {
 	Space = 0,
 	Username = 1,
@@ -19,7 +19,7 @@ enum storage_field_Type
 	END = 4
 };
 
-std::map <std::string, int> storage_field_Map
+std::map <std::string, int> administrator_storage_field_Map
 {
 	{" ",0},
 	{"Username:",1},
@@ -42,10 +42,10 @@ administrator_information_management::administrator_information_management()
 			if (judge -> empty())
 			{
 				administrator* super_administrator = new administrator("admin", "123456", true);
-				create_local_file << storage_field_description[Username] << storage_field_description[Space] << super_administrator->return_username() << storage_field_description[Space]
-					<< storage_field_description[Password] << storage_field_description[Space] << super_administrator->return_password() << storage_field_description[Space]
-					<< storage_field_description[Super_administrator] << storage_field_description[Space] << super_administrator->return_super_administrator() << storage_field_description[Space]
-					<< storage_field_description[END] << std::endl;
+				create_local_file << administrator_storage_field_description[(int)administrator_storage_field_Type::Username] << administrator_storage_field_description[(int)administrator_storage_field_Type::Space] << super_administrator->return_username() << administrator_storage_field_description[(int)administrator_storage_field_Type::Space]
+					<< administrator_storage_field_description[(int)administrator_storage_field_Type::Password] << administrator_storage_field_description[(int)administrator_storage_field_Type::Space] << super_administrator->return_password() << administrator_storage_field_description[(int)administrator_storage_field_Type::Space]
+					<< administrator_storage_field_description[(int)administrator_storage_field_Type::Super_administrator] << administrator_storage_field_description[(int)administrator_storage_field_Type::Space] << super_administrator->return_super_administrator() << administrator_storage_field_description[(int)administrator_storage_field_Type::Space]
+					<< administrator_storage_field_description[(int)administrator_storage_field_Type::END] << std::endl;
 			}
 			else if (*judge == "admin")
 			{
@@ -53,19 +53,19 @@ administrator_information_management::administrator_information_management()
 			}
 			else
 			{
-				initialization_failed(Illegal_file);
+				initialization_failed((int)error_code_Type::Illegal_file);
 			}
 			delete judge;
 		}
 		else
 		{
-			initialization_failed(Open_failed);
+			initialization_failed((int)error_code_Type::Open_failed);
 		}
 		whether_the_local_file_was_created_for_the_first_time.close();
 	}
 	else
 	{
-		initialization_failed(Open_failed);
+		initialization_failed((int)error_code_Type::Open_failed);
 	}
 	create_local_file.flush();
 	create_local_file.close();
@@ -83,27 +83,27 @@ administrator_information_management::administrator_information_management()
 			do
 			{
 				read_local_date >> *judge;
-				switch (storage_field_Map[*judge])
+				switch (administrator_storage_field_Map[*judge])
 				{
-				case Username:
+				case (int)administrator_storage_field_Type::Username:
 				{
 					read_local_date >> *judge;
 					admin->change_username(*judge);
 					break;
 				}
-				case Password:
+				case (int)administrator_storage_field_Type::Password:
 				{
 					read_local_date >> *judge;
 					admin->change_password(*judge);
 					break;
 				}
-				case Super_administrator:
+				case (int)administrator_storage_field_Type::Super_administrator:
 				{
 					read_local_date >> *judge;
 					admin->change_super_administrator(std::stoi(*judge));
 					break;
 				}
-				case END:
+				case (int)administrator_storage_field_Type::END:
 				{
 					administrator_list.push_front(*admin);
 					break;
@@ -122,7 +122,7 @@ administrator_information_management::administrator_information_management()
 	}
 	else
 	{
-		initialization_failed(Open_failed);
+		initialization_failed((int)error_code_Type::Open_failed);
 	}
 	read_local_date.close();
 }
@@ -132,14 +132,19 @@ administrator_information_management::~administrator_information_management()
 	std::ofstream write_local_data("administrator_list.txt", std::ios::out | std::ios::trunc | std::ios::_Nocreate);
 	if (write_local_data.is_open())
 	{
-		for (auto itor = administrator_list.cbegin(); itor != administrator_list.cend(); itor++)
+		for (const auto& i : administrator_list)
 		{
-			//std::string aaa=itor->return_password();
+			administrator* admin = new administrator(i);
+			write_local_data << administrator_storage_field_description[(int)administrator_storage_field_Type::Username] << administrator_storage_field_description[(int)administrator_storage_field_Type::Space] << admin->return_username() << administrator_storage_field_description[(int)administrator_storage_field_Type::Space]
+				<< administrator_storage_field_description[(int)administrator_storage_field_Type::Password] << administrator_storage_field_description[(int)administrator_storage_field_Type::Space] << admin->return_password() << administrator_storage_field_description[(int)administrator_storage_field_Type::Space]
+				<< administrator_storage_field_description[(int)administrator_storage_field_Type::Super_administrator] << administrator_storage_field_description[(int)administrator_storage_field_Type::Space] << admin->return_super_administrator() << administrator_storage_field_description[(int)administrator_storage_field_Type::Space]
+				<< administrator_storage_field_description[(int)administrator_storage_field_Type::END] << std::endl;
+			delete admin;
 		}
 	}
 	else
 	{
-		save_failed(Open_failed);
+		save_failed((int)error_code_Type::Open_failed);
 	}
 	write_local_data.flush();
 	write_local_data.close();
