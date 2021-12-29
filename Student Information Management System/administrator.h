@@ -8,9 +8,9 @@ protected:
 
 public:
 	administrator();
-	administrator(std::string, std::string, bool);
+	administrator(const std::string&, const std::string&, bool);
 	virtual ~administrator();
 	void change_super_administrator(bool);
-	bool return_super_administrator();
+	bool return_super_administrator()const;
 	administrator(const administrator&);
 };

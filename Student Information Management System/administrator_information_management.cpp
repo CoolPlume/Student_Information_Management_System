@@ -61,6 +61,7 @@ administrator_information_management::administrator_information_management()
 		{
 			initialization_failed(Open_failed);
 		}
+		whether_the_local_file_was_created_for_the_first_time.close();
 	}
 	else
 	{
@@ -128,5 +129,18 @@ administrator_information_management::administrator_information_management()
 
 administrator_information_management::~administrator_information_management()
 {
-
+	std::ofstream write_local_data("administrator_list.txt", std::ios::out | std::ios::trunc | std::ios::_Nocreate);
+	if (write_local_data.is_open())
+	{
+		for (auto itor = administrator_list.cbegin(); itor != administrator_list.cend(); itor++)
+		{
+			//std::string aaa=itor->return_password();
+		}
+	}
+	else
+	{
+		save_failed(Open_failed);
+	}
+	write_local_data.flush();
+	write_local_data.close();
 }

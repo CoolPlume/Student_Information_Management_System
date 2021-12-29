@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <ios>
 
 class administrator_information_management
 {

@@ -1,11 +1,11 @@
 #include "person.h"
 
-std::string person::return_username()
+std::string person::return_username()const
 {
 	return username;
 }
 
-std::string person::return_password()
+std::string person::return_password()const
 {
 	return password;
 }
@@ -29,14 +29,14 @@ person::person(const person& per)
 	this -> nick_name = per.nick_name;
 }
 
-void person::change_username(std::string username)
+void person::change_username(const std::string& username)
 {
-	this -> username = username;
+	this->username = username;
 }
 
-void person::change_password(std::string password)
+void person::change_password(const std::string& password)
 {
-	this -> password = password;
+	this->password = password;
 }
 
 std::string person::passw()
