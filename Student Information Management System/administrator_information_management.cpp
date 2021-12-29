@@ -21,10 +21,10 @@ enum storage_field_Type
 
 std::map <std::string, int> storage_field_Map
 {
-	{"Space",0},
-	{"Username",1},
-	{"Password",2},
-	{"Super_administrator",3},
+	{" ",0},
+	{"Username:",1},
+	{"Password:",2},
+	{"Super_administrator:",3},
 	{"END",4}
 };
 
@@ -72,12 +72,13 @@ administrator_information_management::administrator_information_management()
 	std::ifstream read_local_date("administrator_list.txt", std::ios::in | std::ios::_Nocreate);
 	if (read_local_date.is_open())
 	{
-		while (!read_local_date.eof())
+		while (read_local_date.peek() != EOF)
 		{
 			std::string* judge;
 			judge = new std::string;
 			administrator* admin;
 			admin = new administrator;
+			bool read_end = false;
 			do
 			{
 				read_local_date >> *judge;
@@ -106,8 +107,14 @@ administrator_information_management::administrator_information_management()
 					administrator_list.push_front(*admin);
 					break;
 				}
+				default:
+				{
+					if (read_local_date.peek() == EOF)
+						read_end = true;
+					break;
 				}
-			} while (*judge == "END");
+				}
+			} while (*judge != "END" && read_end == false);
 			delete judge;
 			delete admin;
 		}

@@ -1,1 +1,2 @@
 Username: admin Password: 123456 Super_administrator: 1 END
+Username: ads Password: 121 Super_administrator: 0 END
