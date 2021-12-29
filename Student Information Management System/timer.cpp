@@ -2,7 +2,7 @@
 
 timer::timer()
 {
-
+	//TODO
 }
 
 timer::~timer()
@@ -21,6 +21,7 @@ timer::timer(const timer& timer)
 
 void timer::record_the_current_time()
 {
+	//UNDONE
 	std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
 	std::chrono::nanoseconds d = now.time_since_epoch();
 	Hour = std::chrono::duration_cast<std::chrono::hours>(d);

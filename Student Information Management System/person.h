@@ -12,6 +12,10 @@ public:
 	person();
 	virtual ~person();
 	person(const person&);
+	std::string return_username();
+	std::string return_password();
+	void change_username(std::string);
+	void change_password(std::string);
 	std::string passw();
 	void change(std::string);
 };

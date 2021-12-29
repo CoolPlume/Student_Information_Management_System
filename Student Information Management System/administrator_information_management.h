@@ -3,6 +3,9 @@
 #include <fstream>
 #include "error.h"
 #include <forward_list>
+#include <vector>
+#include <string>
+#include <map>
 
 class administrator_information_management
 {
