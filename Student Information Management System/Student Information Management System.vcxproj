@@ -142,21 +142,32 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="administrator.cpp" />
+    <ClCompile Include="administrator_information_management.cpp" />
+    <ClCompile Include="error.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="person.cpp" />
     <ClCompile Include="student.cpp" />
+    <ClCompile Include="student_information_management.cpp" />
     <ClCompile Include="teacher.cpp" />
+    <ClCompile Include="teacher_information_management.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="user.cpp" />
+    <ClCompile Include="user_information_management.cpp" />
+    <ClCompile Include="user_interface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="administrator.h" />
+    <ClInclude Include="administrator_information_management.h" />
+    <ClInclude Include="error.h" />
     <ClInclude Include="person.h" />
     <ClInclude Include="student.h" />
+    <ClInclude Include="student_information_management.h" />
     <ClInclude Include="teacher.h" />
+    <ClInclude Include="teacher_information_management.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="user.h" />
     <ClInclude Include="user_information_management.h" />
+    <ClInclude Include="user_interface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

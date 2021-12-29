@@ -1,5 +1,6 @@
 #include <iostream>
-#include "student.h"
+#include "user_interface.h"
+
 
 int main()
 {
@@ -12,4 +13,5 @@ int main()
 	//std::cout << stu2.passw() << std::endl;
 	//std::cout << stu1.oouthout();
 	//std::cout << stu2.oouthout();
+	student_information_management SIM;
 }
