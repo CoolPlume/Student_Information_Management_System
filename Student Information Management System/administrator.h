@@ -3,7 +3,7 @@
 class administrator :public person
 {
 private:
-
+	bool super_administrator;
 protected:
 
 public:

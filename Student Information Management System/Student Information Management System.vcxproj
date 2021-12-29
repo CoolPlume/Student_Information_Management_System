@@ -156,6 +156,7 @@
     <ClInclude Include="teacher.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="user.h" />
+    <ClInclude Include="user_information_management.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
