@@ -13,5 +13,6 @@ int main()
 	//std::cout << stu2.passw() << std::endl;
 	//std::cout << stu1.oouthout();
 	//std::cout << stu2.oouthout();
-	student_information_management SIM;
+	user_interface UI;
+
 }

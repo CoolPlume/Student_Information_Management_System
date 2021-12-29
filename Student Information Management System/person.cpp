@@ -2,7 +2,7 @@
 
 person::person()
 {
-	username = NULL;
+	username = "None";
 	password = "None";
 	nick_name = "None";
 }

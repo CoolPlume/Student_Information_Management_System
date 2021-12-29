@@ -4,7 +4,7 @@
 class person
 {
 private:
-	int username;
+	std::string username;
 	std::string password;
 protected:
 	std::string nick_name;

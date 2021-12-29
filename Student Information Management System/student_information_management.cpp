@@ -10,7 +10,7 @@ student_information_management::student_information_management()
 	}
 	else
 	{
-		initialization_failed(1);
+		initialization_failed(Open_failed);
 	}
 	read_local_data.flush();
 	read_local_data.close();
