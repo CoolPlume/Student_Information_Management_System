@@ -149,3 +149,18 @@ administrator_information_management::~administrator_information_management()
 	write_local_data.flush();
 	write_local_data.close();
 }
+
+bool administrator_information_management::add_manager(const administrator& admin)
+{
+	bool return_code = false;
+	if (currently_logged_in_administrator.return_super_administrator() == true)
+	{
+		administrator_list.push_front(admin);
+		return_code = 0;
+	}
+	else
+	{
+		return_code = 1;
+	}
+	return return_code;
+}

@@ -2,7 +2,7 @@
 
 user::user()
 {
-
+	gender = NULL;
 }
 
 user::~user()
@@ -19,6 +19,11 @@ user::user(const user& user) :person(user)
 void user::change_gender(int gender)
 {
 	this->gender = gender;
+}
+
+int user::return_gender() const
+{
+	return gender;
 }
 
 int user::oouthout()

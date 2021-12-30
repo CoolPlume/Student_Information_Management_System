@@ -10,7 +10,7 @@ std::vector <std::string> student_storage_field_description =
 	"END"
 };
 
-enum student_storage_field_Type
+enum class student_storage_field_Type
 {
 	Space = 0,
 	Username = 1,
@@ -57,25 +57,25 @@ student_information_management::student_information_management()
 				read_local_date >> *judge;
 				switch (student_storage_field_Map[*judge])
 				{
-				case Username:
+				case (int)student_storage_field_Type::Username:
 				{
 					read_local_date >> *judge;
 					stu->change_username(*judge);
 					break;
 				}
-				case Password:
+				case (int)student_storage_field_Type::Password:
 				{
 					read_local_date >> *judge;
 					stu->change_password(*judge);
 					break;
 				}
-				case Gender:
+				case (int)student_storage_field_Type::Gender:
 				{
 					read_local_date >> *judge;
 					stu->change_gender(std::stoi(*judge));
 					break;
 				}
-				case END:
+				case (int)student_storage_field_Type::END:
 				{
 					student_list.push_front(*stu);
 					break;
@@ -101,4 +101,23 @@ student_information_management::student_information_management()
 
 student_information_management::~student_information_management()
 {
+	std::ofstream write_local_data("student_list.txt", std::ios::out | std::ios::trunc | std::ios::_Nocreate);
+	if (write_local_data.is_open())
+	{
+		for (const auto& i : student_list)
+		{
+			student* stu = new student(i);
+			write_local_data << student_storage_field_description[(int)student_storage_field_Type::Username] << student_storage_field_description[(int)student_storage_field_Type::Space] << stu->return_username() << student_storage_field_description[(int)student_storage_field_Type::Space]
+				<< student_storage_field_description[(int)student_storage_field_Type::Password] << student_storage_field_description[(int)student_storage_field_Type::Space] << stu->return_password() << student_storage_field_description[(int)student_storage_field_Type::Space]
+				<< student_storage_field_description[(int)student_storage_field_Type::Gender] << student_storage_field_description[(int)student_storage_field_Type::Space] << stu->return_gender() << student_storage_field_description[(int)student_storage_field_Type::Space]
+				<< student_storage_field_description[(int)student_storage_field_Type::END] << std::endl;
+			delete stu;
+		}
+	}
+	else
+	{
+		save_failed((int)error_code_Type::Open_failed);
+	}
+	write_local_data.flush();
+	write_local_data.close();
 }
