@@ -54,6 +54,12 @@
     <ClCompile Include="administrator_information_management.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="course.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="course_information_management.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="person.h">
@@ -90,6 +96,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="administrator_information_management.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="course.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="course_information_management.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

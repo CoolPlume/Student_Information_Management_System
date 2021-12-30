@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "course_information_management.h"
 
 class person
 {

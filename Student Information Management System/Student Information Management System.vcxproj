@@ -145,6 +145,8 @@
   <ItemGroup>
     <ClCompile Include="administrator.cpp" />
     <ClCompile Include="administrator_information_management.cpp" />
+    <ClCompile Include="course.cpp" />
+    <ClCompile Include="course_information_management.cpp" />
     <ClCompile Include="error.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="person.cpp" />
@@ -160,6 +162,8 @@
   <ItemGroup>
     <ClInclude Include="administrator.h" />
     <ClInclude Include="administrator_information_management.h" />
+    <ClInclude Include="course.h" />
+    <ClInclude Include="course_information_management.h" />
     <ClInclude Include="error.h" />
     <ClInclude Include="person.h" />
     <ClInclude Include="student.h" />

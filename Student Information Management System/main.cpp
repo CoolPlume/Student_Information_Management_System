@@ -14,5 +14,6 @@ int main()
 	//std::cout << stu1.oouthout();
 	//std::cout << stu2.oouthout();
 	user_interface UI;
+	UI.welcome();
 
 }

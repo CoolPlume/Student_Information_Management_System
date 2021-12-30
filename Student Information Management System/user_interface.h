@@ -3,6 +3,7 @@
 #include "student_information_management.h"
 #include "teacher_information_management.h"
 #include "administrator_information_management.h"
+#include <string>
 
 class user_interface
 {
@@ -15,4 +16,6 @@ protected:
 public:
 	user_interface();
 	~user_interface();
+	void welcome();
+	void login();
 };
