@@ -28,6 +28,18 @@ std::map <std::string, int> administrator_storage_field_Map
 	{"END",4}
 };
 
+enum class add_manager_return_code_Type
+{
+	Added_successfully = 0,
+	Non_super_administrator = 1
+};
+
+enum class login_decision_return_code_Type
+{
+	login_failed = 0,
+	login_successful = 1
+};
+
 administrator_information_management::administrator_information_management()
 {
 	std::ofstream create_local_file("administrator_list.txt", std::ios::app);
@@ -156,11 +168,32 @@ bool administrator_information_management::add_manager(const administrator& admi
 	if (currently_logged_in_administrator.return_super_administrator() == true)
 	{
 		administrator_list.push_front(admin);
-		return_code = 0;
+		return_code = (int)add_manager_return_code_Type::Added_successfully;
 	}
 	else
 	{
-		return_code = 1;
+		return_code = (int)add_manager_return_code_Type::Non_super_administrator;
+	}
+	return return_code;
+}
+
+bool administrator_information_management::login_decision(const std::string& username, const std::string& password)
+{
+	bool return_code = 0;
+	auto i = administrator_list.begin();
+	for (i; i != administrator_list.end(); i++)
+	{
+		administrator* admin = new administrator(*i);
+		if ((admin->return_username() == username) && (admin->return_password() == password))
+		{
+			return_code = (int)login_decision_return_code_Type::login_successful;
+			currently_logged_in_administrator = *i;
+		}
+		delete admin;
+	}
+	if (i == administrator_list.end())
+	{
+		return_code = (int)login_decision_return_code_Type::login_failed;
 	}
 	return return_code;
 }

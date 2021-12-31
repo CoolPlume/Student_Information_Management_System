@@ -81,6 +81,14 @@ void user_interface::login()
 		case 'a':
 		{
 			login_failed_flag = false;
+			if (AIM->login_decision(username, password))
+			{
+
+			}
+			else
+			{
+				login_failed((int)error_code_Type::Wrong_user_name_or_password, login_failed_flag);
+			}
 			break;
 		}
 		default:

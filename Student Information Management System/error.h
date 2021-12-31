@@ -7,7 +7,8 @@ enum class error_code_Type
 	Open_failed = 1,
 	Illegal_file = 2,
 	Subscript_out_of_bounds = 3,
-	User_type_error = 4
+	User_type_error = 4,
+	Wrong_user_name_or_password = 5
 };
 
 void initialization_failed(int);

@@ -71,6 +71,11 @@ void login_failed(int error_code, bool& flag)
 		cerr << "错误码：" << error_code << " 用户类型错误！" << endl;
 		break;
 	}
+	case (int)error_code_Type::Wrong_user_name_or_password:
+	{
+		cerr << "错误码：" << error_code << " 用户名或密码错误！" << endl;
+		break;
+	}
 	}
 	cerr << "是否要重新输入（1：是；0：否）：";
 	bool retry = false;
