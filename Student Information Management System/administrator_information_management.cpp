@@ -117,7 +117,7 @@ administrator_information_management::administrator_information_management()
 				}
 				case (int)administrator_storage_field_Type::END:
 				{
-					administrator_list.push_front(*admin);
+					administrator_list.push_back(*admin);
 					break;
 				}
 				default:
@@ -167,7 +167,7 @@ bool administrator_information_management::add_manager(const administrator& admi
 	bool return_code = false;
 	if ((*currently_logged_in_administrator).return_super_administrator() == true)
 	{
-		administrator_list.push_front(admin);
+		administrator_list.push_back(admin);
 		return_code = (int)add_manager_return_code_Type::Added_successfully;
 	}
 	else

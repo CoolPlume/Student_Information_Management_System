@@ -91,3 +91,35 @@ void login_failed(int error_code, bool& flag)
 		exit(1);
 	}
 }
+
+bool add_information_failed(int error_code, bool& flag)
+{
+	using std::cerr, std::endl;
+	cerr << endl;
+	cerr << "添加失败！" << endl;
+	switch (error_code)
+	{
+	case (int)error_code_Type::The_two_passwords_are_inconsistent:
+	{
+		cerr << "错误码：" << error_code << " 两次密码不一致！" << endl;
+		break;
+	}
+	case (int)error_code_Type::Incorrect_username_format:
+	{
+		cerr << "错误码：" << error_code << " 用户名格式错误！" << endl;
+		break;
+	}
+	}
+	cerr << "是否要重新输入（1：是；0：否）：";
+	bool retry = false;
+	std::cin >> retry;// BUG : 输入其他数字将引发bug
+	if (retry)
+	{
+		flag = true;
+	}
+	else
+	{
+		return true;
+	}
+	return false;
+}

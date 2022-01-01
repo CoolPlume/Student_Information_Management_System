@@ -34,7 +34,7 @@ void user_interface::welcome()
 		case 0:
 		{
 			wrong_selection_flag = false;
-			exit(0);
+			return;
 			break;
 		}
 		case 1:
@@ -125,16 +125,219 @@ void user_interface::administrator_interface()
 	cout << endl
 		<< "你好，管理员：" << AIM->return_currently_logged_in_administrator().return_username() << endl << endl;
 	system("pause");
+	do
+	{
+		cout << endl;
+		cout << "********************************************" << endl
+			<< "======>>       管理员操纵面板       <<======" << endl
+			<< endl
+			<< "      *      [1]添加管理员           *      " << endl
+			<< "      *      [2]添加教师             *      " << endl
+			<< "      *      [3]添加学生             *      " << endl
+			<< "      *      [4]修改密码             *      " << endl
+			<< "      *      [5]新功能会在这里       *      " << endl
+			<< "      *      [0]退出                 *      " << endl
+			<< endl
+			<< "********************************************" << endl << endl;
+
+		bool wrong_selection_flag = false;
+		int select;
+		do//UNDONE
+		{
+			cout << "请选择您的操作（0-5）：";
+			cin >> select;
+			switch (select)
+			{
+			case 0:
+			{
+				wrong_selection_flag = false;
+				return;
+				break;
+			}
+			case 1:
+			{
+				wrong_selection_flag = false;
+				add_manager();
+				break;
+			}
+			case 2:
+			{
+				wrong_selection_flag = false;
+				add_teacher();
+				break;
+			}
+			case 3:
+			{
+				wrong_selection_flag = false;
+				add_student();
+				break;
+			}
+			case 4:
+			{
+				wrong_selection_flag = false;
+				break;
+			}
+			default:
+			{
+				wrong_selection((int)error_code_Type::Subscript_out_of_bounds, wrong_selection_flag);
+				break;
+			}
+			}
+		} while (wrong_selection_flag);
+	} while (true);
+}
+
+void user_interface::teacher_interface()//TODO
+{
+	using std::cin, std::cout, std::endl;
+	cout << endl
+		<< "你好，教师：" << AIM->return_currently_logged_in_administrator().return_username() << endl << endl;
+	system("pause");
 	cout << endl;
-	cout << "======>>     管理员操纵界面     <<======" << endl;
+	cout << "********************************************" << endl
+		<< "======>>       教师操纵面板       <<======" << endl;
+	cout << endl
+		<< "      *      [1]学生查询             *      " << endl
+		<< "      *      [2]导出本班学生         *      " << endl
+		<< "      *      [3]导出上课课表         *      " << endl
+		<< "      *      [4]导出本班课表         *      " << endl
+		<< "      *      [5]修改密码             *      " << endl
+		<< "      *      [6]修改昵称             *      " << endl
+		<< "      *      [7]新功能会在这里       *      " << endl
+		<< "      *      [0]退出                 *      " << endl << endl
+		<< "********************************************" << endl << endl;
+
+	bool wrong_selection_flag = false;
+	int select;
+	do
+	{
+		cout << "请选择您的操作（0-7）：";
+		cin >> select;
+		switch (select)
+		{
+		case 0:
+		{
+			wrong_selection_flag = false;
+			return;
+			break;
+		}
+		default:
+		{
+			wrong_selection((int)error_code_Type::Subscript_out_of_bounds, wrong_selection_flag);
+			break;
+		}
+		}
+	} while (wrong_selection_flag);
 }
 
-void user_interface::teacher_interface()
+void user_interface::student_interface()//TODO
 {
 	using std::cin, std::cout, std::endl;
+	cout << endl
+		<< "你好，学生：" << AIM->return_currently_logged_in_administrator().return_username() << endl << endl;
+	system("pause");
+	cout << endl;
+	cout << "********************************************" << endl
+		<< "======>>       学生操纵面板       <<======" << endl;
+	cout << endl
+		<< "      *      [1]成绩查询             *      " << endl
+		<< "      *      [2]导出课表             *      " << endl
+		<< "      *      [3]修改密码             *      " << endl
+		<< "      *      [4]修改昵称             *      " << endl
+		<< "      *      [5]新功能会在这里       *      " << endl
+		<< "      *      [0]退出                 *      " << endl << endl
+		<< "********************************************" << endl << endl;
+
+	bool wrong_selection_flag = false;
+	int select;
+	do
+	{
+		cout << "请选择您的操作（0-5）：";
+		cin >> select;
+		switch (select)
+		{
+		case 0:
+		{
+			wrong_selection_flag = false;
+			return;
+			break;
+		}
+		default:
+		{
+			wrong_selection((int)error_code_Type::Subscript_out_of_bounds, wrong_selection_flag);
+			break;
+		}
+		}
+	} while (wrong_selection_flag);
 }
 
-void user_interface::student_interface()
+void user_interface::add_manager()
 {
 	using std::cin, std::cout, std::endl;
+	administrator* admin = new administrator;
+	cout << endl
+		<< "======>>       添加管理员       <<======" << endl << endl
+		<< "请在下方输入要添加的信息" << endl;
+
+	std::string username;
+	bool incorrect_username_format_flag = false;
+	bool stop_add_flag = false;
+	do
+	{
+		cout << "请输入用户名（管理员用户名必须以字母 a 开头）：";
+		cin >> username;
+		if (username[0] != 'a')
+		{
+			incorrect_username_format_flag = false;
+			stop_add_flag = add_information_failed((int)error_code_Type::Incorrect_username_format, incorrect_username_format_flag);
+		}
+		else
+		{
+			admin->change_username(std::move(username));
+			incorrect_username_format_flag = false;
+		}
+	} while (incorrect_username_format_flag);
+	if (stop_add_flag)
+	{
+		delete admin;
+		return;
+	}
+	stop_add_flag = false;
+	bool inconsistent_passwords_flag = false;
+	do
+	{
+		cout << "请输入密码：";
+		std::string password1, password2;
+		cin >> password1;
+		cout << "请重复密码：";
+		cin >> password2;
+		if (password1 != password2)
+		{
+			inconsistent_passwords_flag = false;
+			stop_add_flag = add_information_failed((int)error_code_Type::The_two_passwords_are_inconsistent, inconsistent_passwords_flag);
+		}
+		else
+		{
+			admin->change_password(std::move(password1));
+			inconsistent_passwords_flag = false;
+		}
+	} while (inconsistent_passwords_flag);
+	if (stop_add_flag)
+	{
+		delete admin;
+		return;
+	}
+	cout << "添加成功！" << endl;
+	AIM->add_manager(*admin);
+	delete admin;
+}
+
+void user_interface::add_student()
+{
+	//TODO
+}
+
+void user_interface::add_teacher()
+{
+	//TODO
 }

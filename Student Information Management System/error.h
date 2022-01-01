@@ -8,10 +8,13 @@ enum class error_code_Type
 	Illegal_file = 2,
 	Subscript_out_of_bounds = 3,
 	User_type_error = 4,
-	Wrong_user_name_or_password = 5
+	Wrong_user_name_or_password = 5,
+	The_two_passwords_are_inconsistent = 6,
+	Incorrect_username_format = 7
 };
 
 void initialization_failed(int);
 void save_failed(int);
 void wrong_selection(int, bool&);
 void login_failed(int, bool&);
+bool add_information_failed(int, bool&);

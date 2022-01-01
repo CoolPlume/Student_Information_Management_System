@@ -21,4 +21,7 @@ public:
 	void administrator_interface();
 	void teacher_interface();
 	void student_interface();
+	void add_manager();
+	void add_student();
+	void add_teacher();
 };
