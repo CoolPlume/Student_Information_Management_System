@@ -138,7 +138,7 @@ bool teacher_information_management::login_decision(const std::string& username,
 		if ((tea->return_username() == username) && (tea->return_password() == password))
 		{
 			return_code = (int)login_decision_return_code_Type::login_successful;
-			currently_logged_in_teacher = *i;
+			currently_logged_in_teacher = &*i;
 		}
 		delete tea;
 	}
@@ -147,4 +147,9 @@ bool teacher_information_management::login_decision(const std::string& username,
 		return_code = (int)login_decision_return_code_Type::login_failed;
 	}
 	return return_code;
+}
+
+teacher teacher_information_management::return_currently_logged_in_teacher() const
+{
+	return *currently_logged_in_teacher;
 }

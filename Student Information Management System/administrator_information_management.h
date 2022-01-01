@@ -12,7 +12,7 @@ class administrator_information_management
 {
 private:
 	std::forward_list <administrator> administrator_list;
-	administrator currently_logged_in_administrator;
+	administrator* currently_logged_in_administrator;
 protected:
 
 public:

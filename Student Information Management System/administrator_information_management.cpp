@@ -165,7 +165,7 @@ administrator_information_management::~administrator_information_management()
 bool administrator_information_management::add_manager(const administrator& admin)
 {
 	bool return_code = false;
-	if (currently_logged_in_administrator.return_super_administrator() == true)
+	if ((*currently_logged_in_administrator).return_super_administrator() == true)
 	{
 		administrator_list.push_front(admin);
 		return_code = (int)add_manager_return_code_Type::Added_successfully;
@@ -187,7 +187,8 @@ bool administrator_information_management::login_decision(const std::string& use
 		if ((admin->return_username() == username) && (admin->return_password() == password))
 		{
 			return_code = (int)login_decision_return_code_Type::login_successful;
-			currently_logged_in_administrator = *i;
+
+			currently_logged_in_administrator = &*i;
 		}
 		delete admin;
 	}
@@ -200,5 +201,5 @@ bool administrator_information_management::login_decision(const std::string& use
 
 administrator administrator_information_management::return_currently_logged_in_administrator() const
 {
-	return std::move(administrator(currently_logged_in_administrator));
+	return administrator(*currently_logged_in_administrator);
 }
