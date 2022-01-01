@@ -28,6 +28,12 @@ std::map <std::string, int> student_storage_field_Map
 	{"END",4}
 };
 
+enum class login_decision_return_code_Type
+{
+	login_failed = 0,
+	login_successful = 1
+};
+
 student_information_management::student_information_management()
 {
 	std::ofstream create_local_file("student_list.txt", std::ios::app);
@@ -120,4 +126,25 @@ student_information_management::~student_information_management()
 	}
 	write_local_data.flush();
 	write_local_data.close();
+}
+
+bool student_information_management::login_decision(const std::string& username, const std::string& password)
+{
+	bool return_code = 0;
+	auto i = student_list.begin();
+	for (i; i != student_list.end(); i++)
+	{
+		student* stu = new student(*i);
+		if ((stu->return_username() == username) && (stu->return_password() == password))
+		{
+			return_code = (int)login_decision_return_code_Type::login_successful;
+			currently_logged_in_student = *i;
+		}
+		delete stu;
+	}
+	if ((return_code != (int)login_decision_return_code_Type::login_successful) && (i == student_list.end()))
+	{
+		return_code = (int)login_decision_return_code_Type::login_failed;
+	}
+	return return_code;
 }

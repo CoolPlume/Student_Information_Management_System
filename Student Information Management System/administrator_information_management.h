@@ -20,4 +20,5 @@ public:
 	~administrator_information_management();
 	bool add_manager(const administrator&);
 	bool login_decision(const std::string&, const std::string&);
+	administrator return_currently_logged_in_administrator()const;
 };

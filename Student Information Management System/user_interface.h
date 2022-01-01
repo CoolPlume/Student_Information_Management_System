@@ -18,4 +18,7 @@ public:
 	~user_interface();
 	void welcome();
 	void login();
+	void administrator_interface();
+	void teacher_interface();
+	void student_interface();
 };

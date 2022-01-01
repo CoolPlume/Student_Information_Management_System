@@ -191,9 +191,14 @@ bool administrator_information_management::login_decision(const std::string& use
 		}
 		delete admin;
 	}
-	if (i == administrator_list.end())
+	if ((return_code != (int)login_decision_return_code_Type::login_successful) && (i == administrator_list.end()))
 	{
 		return_code = (int)login_decision_return_code_Type::login_failed;
 	}
 	return return_code;
+}
+
+administrator administrator_information_management::return_currently_logged_in_administrator() const
+{
+	return std::move(administrator(currently_logged_in_administrator));
 }

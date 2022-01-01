@@ -71,11 +71,29 @@ void user_interface::login()
 		case 'S':
 		{
 			login_failed_flag = false;
+			if (SIM->login_decision(username, password))
+			{
+				cout << "登录成功！" << endl;
+				administrator_interface();
+			}
+			else
+			{
+				login_failed((int)error_code_Type::Wrong_user_name_or_password, login_failed_flag);
+			}
 			break;
 		}
 		case 'T':
 		{
 			login_failed_flag = false;
+			if (TIM->login_decision(username, password))
+			{
+				cout << "登录成功！" << endl;
+				teacher_interface();
+			}
+			else
+			{
+				login_failed((int)error_code_Type::Wrong_user_name_or_password, login_failed_flag);
+			}
 			break;
 		}
 		case 'a':
@@ -83,7 +101,8 @@ void user_interface::login()
 			login_failed_flag = false;
 			if (AIM->login_decision(username, password))
 			{
-
+				cout << "登录成功！" << endl;
+				administrator_interface();
 			}
 			else
 			{
@@ -98,4 +117,24 @@ void user_interface::login()
 		}
 		}
 	} while (login_failed_flag);
+}
+
+void user_interface::administrator_interface()
+{
+	using std::cin, std::cout, std::endl;
+	cout << endl
+		<< "你好，管理员：" << AIM->return_currently_logged_in_administrator().return_username() << endl << endl;
+	system("pause");
+	cout << endl;
+	cout << "======>>     管理员操纵界面     <<======" << endl;
+}
+
+void user_interface::teacher_interface()
+{
+	using std::cin, std::cout, std::endl;
+}
+
+void user_interface::student_interface()
+{
+	using std::cin, std::cout, std::endl;
 }

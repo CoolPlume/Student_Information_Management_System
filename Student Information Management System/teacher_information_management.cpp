@@ -28,6 +28,12 @@ std::map <std::string, int> teacher_storage_field_Map
 	{"END",4}
 };
 
+enum class login_decision_return_code_Type
+{
+	login_failed = 0,
+	login_successful = 1
+};
+
 teacher_information_management::teacher_information_management()
 {
 	std::ofstream create_local_file("teacher_list.txt", std::ios::app);
@@ -120,4 +126,25 @@ teacher_information_management::~teacher_information_management()
 	}
 	write_local_data.flush();
 	write_local_data.close();
+}
+
+bool teacher_information_management::login_decision(const std::string& username, const std::string& password)
+{
+	bool return_code = 0;
+	auto i = teacher_list.begin();
+	for (i; i != teacher_list.end(); i++)
+	{
+		teacher* tea = new teacher(*i);
+		if ((tea->return_username() == username) && (tea->return_password() == password))
+		{
+			return_code = (int)login_decision_return_code_Type::login_successful;
+			currently_logged_in_teacher = *i;
+		}
+		delete tea;
+	}
+	if ((return_code != (int)login_decision_return_code_Type::login_successful) && (i == teacher_list.end()))
+	{
+		return_code = (int)login_decision_return_code_Type::login_failed;
+	}
+	return return_code;
 }
