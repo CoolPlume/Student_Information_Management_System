@@ -12,13 +12,13 @@ enum class course_Type
 	chemical = 7,
 	biology = 8,
 	information_technology = 9,
-	common_technology = 10
+	common_technology = 10,
+	technology = 11
 };
 
 class course
 {
 private:
-	int course_category;
 	int course_results;
 	int course_hours;
 	int course_classroom;
@@ -28,7 +28,9 @@ protected:
 public:
 	course();
 	virtual ~course();
-
+	void change_the_selection_status(bool);
+	bool return_the_selection_status()const;
+	int return_course_results()const;
 };
 
 constexpr int main_subject_full_score = 150;

@@ -3,11 +3,12 @@
 user::user()
 {
 	gender = NULL;
+	CIM = new course_information_management;
 }
 
 user::~user()
 {
-
+	delete CIM;
 }
 
 user::user(const user& user) :person(user)
@@ -36,5 +37,10 @@ void user::change_actual_name(const std::string& actual_name)
 std::string user::return_actual_name() const
 {
 	return actual_name;
+}
+
+course_information_management* user::revise_course_information_management() const
+{
+	return CIM;
 }
 

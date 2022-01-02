@@ -188,3 +188,16 @@ student* student_information_management::revise_currently_logged_in_student() co
 {
 	return currently_logged_in_student;
 }
+
+student* student_information_management::find_student(const std::string& username) const
+{
+	student* stu = nullptr;
+	for (const auto& i : student_list)
+	{
+		if (i.return_username() == username)
+		{
+			stu = const_cast<student*>(&i);
+		}
+	}
+	return stu;
+}

@@ -26,4 +26,5 @@ public:
 	void add_teacher();
 	void change_password(int);
 	void change_nick_name(int);
+	void select_subjects(int);
 };

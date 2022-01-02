@@ -1,6 +1,7 @@
 #pragma once
 #include "person.h"
 #include "timer.h"
+#include "course_information_management.h"
 
 enum genderType { male, female };
 
@@ -11,6 +12,7 @@ private:
 	timer date_of_birth;
 	std::string actual_name;
 	int gender;
+	course_information_management* CIM;
 protected:
 	
 public:
@@ -21,4 +23,5 @@ public:
 	int return_gender()const;
 	void change_actual_name(const std::string&);
 	std::string return_actual_name()const;
+	course_information_management* revise_course_information_management()const;
 };

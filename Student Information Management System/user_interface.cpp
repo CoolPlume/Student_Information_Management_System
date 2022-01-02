@@ -209,7 +209,7 @@ void user_interface::administrator_interface()
 	} while (true);
 }
 
-void user_interface::teacher_interface(int user_type)//TODO
+void user_interface::teacher_interface(int user_type)
 {
 	using std::cin, std::cout, std::endl;
 	if (user_type == static_cast<int>(user_Type::teacher))
@@ -229,7 +229,8 @@ void user_interface::teacher_interface(int user_type)//TODO
 		<< "      *      [4]导出本班课表         *      " << endl
 		<< "      *      [5]修改密码             *      " << endl
 		<< "      *      [6]修改昵称             *      " << endl
-		<< "      *      [7]新功能会在这里       *      " << endl
+		<< "      *      [7]上传学生成绩         *      " << endl
+		<< "      *      [8]新功能会在这里       *      " << endl
 		<< "      *      [0]退出                 *      " << endl << endl
 		<< "********************************************" << endl << endl;
 
@@ -302,8 +303,10 @@ void user_interface::student_interface(int user_type)//TODO
 		<< "      *      [2]导出课表             *      " << endl
 		<< "      *      [3]修改密码             *      " << endl
 		<< "      *      [4]修改昵称             *      " << endl
-		<< "      *      [5]新功能会在这里       *      " << endl
-		<< "      *      [0]退出                 *      " << endl << endl
+		<< "      *      [5]选科                 *      " << endl
+		<< "      *      [6]新功能会在这里       *      " << endl
+		<< "      *      [0]退出                 *      " << endl
+		<< endl
 		<< "********************************************" << endl << endl;
 
 	bool wrong_selection_flag = false;
@@ -337,7 +340,6 @@ void user_interface::student_interface(int user_type)//TODO
 		case 4:
 		{
 			wrong_selection_flag = false;
-			wrong_selection_flag = false;
 			if (user_type != static_cast<int>(user_Type::student))
 			{
 				cout << "错误！请使用学生账户来进行此操作。" << endl;
@@ -346,6 +348,20 @@ void user_interface::student_interface(int user_type)//TODO
 			else
 			{
 				change_nick_name(static_cast<int>(user_Type::student));
+			}
+			break;
+		}
+		case 5:
+		{
+			wrong_selection_flag = false;
+			if (user_type != static_cast<int>(user_Type::student))
+			{
+				cout << "错误！请使用学生账户来进行此操作。" << endl;
+				system("pause");
+			}
+			else
+			{
+				select_subjects(user_type);
 			}
 			break;
 		}
@@ -655,5 +671,148 @@ void user_interface::change_nick_name(int user_type)
 			SIM->revise_currently_logged_in_student()->change_nick_name(nick_name);
 			break;
 		}
+	}
+}
+
+void user_interface::select_subjects(int user_type)
+{
+	using std::cin, std::cout, std::endl;
+	cout << endl
+		<< "======>>       学生选科       <<======" << endl << endl;
+
+	switch (user_type)
+	{
+	case static_cast<int>(user_Type::student):
+	{
+		cout << "提示：" << endl
+			<< "每个学生至多可以选择3门科目" << endl
+			<< "请于规定时间内完成选科，错过时间将无法选课！" << endl
+			<< "选择完毕无法更改！" << endl
+			<< "没有选的科目考试不计分数！" << endl << endl;
+		bool wrong_select_flag = false;
+		do
+		{
+			wrong_select_flag = false;
+			cout << "可选科目一览：" << endl
+				<< "[3]政治" << endl
+				<< "[4]历史" << endl
+				<< "[5]地理" << endl
+				<< "[6]物理" << endl
+				<< "[7]化学" << endl
+				<< "[8]生物" << endl
+				<< "[11]技术" << endl << endl;
+			cout << "请输入要选的三门科目的编号，中间用空格隔开：";
+			int select1, select2, select3;
+			cin >> select1 >> select2 >> select3;
+			if (select1 == select2 || select1 == select3 || select2 == select3)
+			{
+				cout << "重复的选科！" << endl
+					<< "是否重新选择(1：是；0：否):";
+				bool retry;
+				cin >> retry;
+				if (retry)
+				{
+					wrong_select_flag = true;
+				}
+				else
+				{
+					return;
+				}
+			}
+			else
+			{
+				if ((select1 < 3) || (select1 > 11) || (select2 < 3) || (select2 > 11) || (select3 < 3) || (select3 > 11)
+					|| (select1 == 9) || (select1 == 10) || (select2 == 9) || (select2 == 10) || (select3 == 9) || (select3 == 10))
+				{
+					cout << "错误的选科！" << endl
+						<< "是否重新选择(1：是；0：否):";
+					bool retry;
+					cin >> retry;
+					if (retry)
+					{
+						wrong_select_flag = true;
+					}
+					else
+					{
+						return;
+					}
+				}
+				else
+				{
+					SIM->revise_currently_logged_in_student()->revise_course_information_management()->change_the_selection_status(select1, true);
+					SIM->revise_currently_logged_in_student()->revise_course_information_management()->change_the_selection_status(select2, true);
+					SIM->revise_currently_logged_in_student()->revise_course_information_management()->change_the_selection_status(select3, true);
+					cout << "选科完成！" << endl;
+				}
+			}
+		} while (wrong_select_flag);
+		break;
+	}
+	case static_cast<int>(user_Type::administrator):
+	{
+		bool retry_flag = false;
+		student* stu;
+		int select;
+		do
+		{
+			retry_flag = false;
+			cout << "请输入要修改的学生的用户名：";
+			std::string username;
+			cin >> username;
+			stu = SIM->find_student(username);
+			if (stu == nullptr)
+			{
+				cout << "找不到目标学生！" << endl
+					<< "是否要重新输入（1：是；0：否）：";
+				bool retry;
+				cin >> retry;
+				if(retry)
+				{
+					retry_flag = true;
+				}
+				else
+				{
+					return;
+				}
+			}
+		} while (retry_flag);
+
+		cout << "可选科目一览：" << endl
+			<< "[3]政治" << endl
+			<< "[4]历史" << endl
+			<< "[5]地理" << endl
+			<< "[6]物理" << endl
+			<< "[7]化学" << endl
+			<< "[8]生物" << endl
+			<< "[11]技术" << endl << endl;
+		do {
+			retry_flag = false;
+			cout << "请输入要修改的科目：";
+			cin >> select;
+			if (select < 3 || select>11 || select == 9 || select == 10)
+			{
+				cout << "错误的选科！" << endl
+					<< "是否重新选择(1：是；0：否):";
+				bool retry;
+				cin >> retry;
+				if (retry)
+				{
+					retry_flag = true;
+				}
+				else
+				{
+					return;
+				}
+			}
+		} while (retry_flag);
+
+		bool state;
+		cout << "请输入目标选科状态（1：选择；0：取消选择）：";
+		cin >> state;
+
+		stu->revise_course_information_management()->change_the_selection_status(select, state);
+		cout << "修改完成！" << endl;
+		break;
+	}
 	}
 }

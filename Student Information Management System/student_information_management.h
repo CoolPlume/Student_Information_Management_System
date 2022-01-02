@@ -18,4 +18,5 @@ public:
 	void add_student(const student&);
 	size_t return_student_list_size()const;
 	student* revise_currently_logged_in_student()const;
+	student* find_student(const std::string&)const;
 };
