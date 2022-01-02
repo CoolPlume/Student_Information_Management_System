@@ -14,6 +14,7 @@ user::user(const user& user) :person(user)
 {
 	this -> last_login_time = user.last_login_time;
 	this -> date_of_birth = user.date_of_birth;
+	this->gender = user.gender;
 }
 
 void user::change_gender(int gender)
@@ -26,8 +27,8 @@ int user::return_gender() const
 	return gender;
 }
 
-int user::oouthout()
+void user::change_actual_name(const std::string& actual_name)
 {
-	last_login_time.record_the_current_time();
-	return last_login_time.outhour().count();
+	this->actual_name = actual_name;
 }
+

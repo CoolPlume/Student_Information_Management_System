@@ -7,12 +7,12 @@ void initialization_failed(int error_code)
 	cerr << "程序初始化失败！" << endl;
 	switch (error_code)
 	{
-	case (int)error_code_Type::Open_failed:
+	case static_cast<int>(error_code_Type::Open_failed):
 	{
 		cerr << "错误码：" << error_code << " 本地文件打开失败！" << endl;
 		break;
 	}
-	case (int)error_code_Type::Illegal_file:
+	case static_cast<int>(error_code_Type::Illegal_file):
 	{
 		cerr << "错误码：" << error_code << " 侦测到被改动的本地文件！" << endl;
 		break;
@@ -30,7 +30,7 @@ void save_failed(int error_code)
 	cerr << "程序数据保存失败！" << endl;
 	switch (error_code)
 	{
-	case (int)error_code_Type::Open_failed:
+	case static_cast<int>(error_code_Type::Open_failed):
 	{
 		cerr << "错误码：" << error_code << " 本地文件打开失败！" << endl;
 		break;
@@ -48,7 +48,7 @@ void wrong_selection(int error_code, bool& flag)
 	cerr << "选择了错误的选项！" << endl;
 	switch (error_code)
 	{
-	case (int)error_code_Type::Subscript_out_of_bounds:
+	case static_cast<int>(error_code_Type::Subscript_out_of_bounds):
 	{
 		cerr << "错误码：" << error_code << " 下标越界！" << endl;
 		break;
@@ -66,12 +66,12 @@ void login_failed(int error_code, bool& flag)
 	cerr << "登陆失败！" << endl;
 	switch (error_code)
 	{
-	case (int)error_code_Type::User_type_error:
+	case static_cast<int>(error_code_Type::User_type_error):
 	{
 		cerr << "错误码：" << error_code << " 用户类型错误！" << endl;
 		break;
 	}
-	case (int)error_code_Type::Wrong_user_name_or_password:
+	case static_cast<int>(error_code_Type::Wrong_user_name_or_password):
 	{
 		cerr << "错误码：" << error_code << " 用户名或密码错误！" << endl;
 		break;
@@ -99,12 +99,12 @@ bool add_information_failed(int error_code, bool& flag)
 	cerr << "添加失败！" << endl;
 	switch (error_code)
 	{
-	case (int)error_code_Type::The_two_passwords_are_inconsistent:
+	case static_cast<int>(error_code_Type::The_two_passwords_are_inconsistent):
 	{
 		cerr << "错误码：" << error_code << " 两次密码不一致！" << endl;
 		break;
 	}
-	case (int)error_code_Type::Incorrect_username_format:
+	case static_cast<int>(error_code_Type::Incorrect_username_format):
 	{
 		cerr << "错误码：" << error_code << " 用户名格式错误！" << endl;
 		break;

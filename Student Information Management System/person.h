@@ -17,6 +17,5 @@ public:
 	std::string return_password()const;
 	void change_username(const std::string&);
 	void change_password(const std::string&);
-	std::string passw();
-	void change(std::string);
+	void change_nick_name(const std::string&);
 };

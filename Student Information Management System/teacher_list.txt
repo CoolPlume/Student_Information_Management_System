@@ -1,1 +1,1 @@
-Username: admin Password: 123456 Gender: -842150451 END
+Username: admin Password: 123456 Gender: -842150451 ENDActual_name:Nick_name:

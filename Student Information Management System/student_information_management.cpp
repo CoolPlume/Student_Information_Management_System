@@ -43,7 +43,7 @@ student_information_management::student_information_management()
 	}
 	else
 	{
-		initialization_failed((int)error_code_Type::Open_failed);
+		initialization_failed(static_cast<int>(error_code_Type::Open_failed));
 	}
 	create_local_file.flush();
 	create_local_file.close();
@@ -63,27 +63,27 @@ student_information_management::student_information_management()
 				read_local_date >> *judge;
 				switch (student_storage_field_Map[*judge])
 				{
-				case (int)student_storage_field_Type::Username:
+				case static_cast<int>(student_storage_field_Type::Username):
 				{
 					read_local_date >> *judge;
 					stu->change_username(*judge);
 					break;
 				}
-				case (int)student_storage_field_Type::Password:
+				case static_cast<int>(student_storage_field_Type::Password):
 				{
 					read_local_date >> *judge;
 					stu->change_password(*judge);
 					break;
 				}
-				case (int)student_storage_field_Type::Gender:
+				case static_cast<int>(student_storage_field_Type::Gender):
 				{
 					read_local_date >> *judge;
 					stu->change_gender(std::stoi(*judge));
 					break;
 				}
-				case (int)student_storage_field_Type::END:
+				case static_cast<int>(student_storage_field_Type::END):
 				{
-					student_list.push_front(*stu);
+					student_list.push_back(*stu);
 					break;
 				}
 				default:
@@ -100,7 +100,7 @@ student_information_management::student_information_management()
 	}
 	else
 	{
-		initialization_failed((int)error_code_Type::Open_failed);
+		initialization_failed(static_cast<int>(error_code_Type::Open_failed));
 	}
 	read_local_date.close();
 }
@@ -113,16 +113,16 @@ student_information_management::~student_information_management()
 		for (const auto& i : student_list)
 		{
 			student* stu = new student(i);
-			write_local_data << student_storage_field_description[(int)student_storage_field_Type::Username] << student_storage_field_description[(int)student_storage_field_Type::Space] << stu->return_username() << student_storage_field_description[(int)student_storage_field_Type::Space]
-				<< student_storage_field_description[(int)student_storage_field_Type::Password] << student_storage_field_description[(int)student_storage_field_Type::Space] << stu->return_password() << student_storage_field_description[(int)student_storage_field_Type::Space]
-				<< student_storage_field_description[(int)student_storage_field_Type::Gender] << student_storage_field_description[(int)student_storage_field_Type::Space] << stu->return_gender() << student_storage_field_description[(int)student_storage_field_Type::Space]
-				<< student_storage_field_description[(int)student_storage_field_Type::END] << std::endl;
+			write_local_data << student_storage_field_description[static_cast<int>(student_storage_field_Type::Username)] << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)] << stu->return_username() << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)]
+				<< student_storage_field_description[static_cast<int>(student_storage_field_Type::Password)] << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)] << stu->return_password() << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)]
+				<< student_storage_field_description[static_cast<int>(student_storage_field_Type::Gender)] << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)] << stu->return_gender() << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)]
+				<< student_storage_field_description[static_cast<int>(student_storage_field_Type::END)] << std::endl;
 			delete stu;
 		}
 	}
 	else
 	{
-		save_failed((int)error_code_Type::Open_failed);
+		save_failed(static_cast<int>(error_code_Type::Open_failed));
 	}
 	write_local_data.flush();
 	write_local_data.close();
@@ -132,19 +132,19 @@ bool student_information_management::login_decision(const std::string& username,
 {
 	bool return_code = 0;
 	auto i = student_list.begin();
-	for (i; i != student_list.end(); i++)
+	for (i; i != student_list.end(); ++i)
 	{
 		student* stu = new student(*i);
 		if ((stu->return_username() == username) && (stu->return_password() == password))
 		{
-			return_code = (int)login_decision_return_code_Type::login_successful;
+			return_code = static_cast<int>(login_decision_return_code_Type::login_successful);
 			currently_logged_in_student = &*i;
 		}
 		delete stu;
 	}
-	if ((return_code != (int)login_decision_return_code_Type::login_successful) && (i == student_list.end()))
+	if ((return_code != static_cast<int>(login_decision_return_code_Type::login_successful)) && (i == student_list.end()))
 	{
-		return_code = (int)login_decision_return_code_Type::login_failed;
+		return_code = static_cast<int>(login_decision_return_code_Type::login_failed);
 	}
 	return return_code;
 }
@@ -152,4 +152,9 @@ bool student_information_management::login_decision(const std::string& username,
 student student_information_management::return_currently_logged_in_student() const
 {
 	return *currently_logged_in_student;
+}
+
+void student_information_management::add_student(const student& stu)
+{
+	student_list.push_back(stu);
 }

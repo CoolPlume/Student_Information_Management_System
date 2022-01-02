@@ -45,7 +45,7 @@ void user_interface::welcome()
 		}
 		default:
 		{
-			wrong_selection((int)error_code_Type::Subscript_out_of_bounds, wrong_selection_flag);
+			wrong_selection(static_cast<int>(error_code_Type::Subscript_out_of_bounds), wrong_selection_flag);
 			break;
 		}
 		}
@@ -78,7 +78,7 @@ void user_interface::login()
 			}
 			else
 			{
-				login_failed((int)error_code_Type::Wrong_user_name_or_password, login_failed_flag);
+				login_failed(static_cast<int>(error_code_Type::Wrong_user_name_or_password), login_failed_flag);
 			}
 			break;
 		}
@@ -92,7 +92,7 @@ void user_interface::login()
 			}
 			else
 			{
-				login_failed((int)error_code_Type::Wrong_user_name_or_password, login_failed_flag);
+				login_failed(static_cast<int>(error_code_Type::Wrong_user_name_or_password), login_failed_flag);
 			}
 			break;
 		}
@@ -106,13 +106,13 @@ void user_interface::login()
 			}
 			else
 			{
-				login_failed((int)error_code_Type::Wrong_user_name_or_password, login_failed_flag);
+				login_failed(static_cast<int>(error_code_Type::Wrong_user_name_or_password), login_failed_flag);
 			}
 			break;
 		}
 		default:
 		{
-			login_failed((int)error_code_Type::User_type_error, login_failed_flag);
+			login_failed(static_cast<int>(error_code_Type::User_type_error), login_failed_flag);
 			break;
 		}
 		}
@@ -179,7 +179,7 @@ void user_interface::administrator_interface()
 			}
 			default:
 			{
-				wrong_selection((int)error_code_Type::Subscript_out_of_bounds, wrong_selection_flag);
+				wrong_selection(static_cast<int>(error_code_Type::Subscript_out_of_bounds), wrong_selection_flag);
 				break;
 			}
 			}
@@ -223,7 +223,7 @@ void user_interface::teacher_interface()//TODO
 		}
 		default:
 		{
-			wrong_selection((int)error_code_Type::Subscript_out_of_bounds, wrong_selection_flag);
+			wrong_selection(static_cast<int>(error_code_Type::Subscript_out_of_bounds), wrong_selection_flag);
 			break;
 		}
 		}
@@ -264,7 +264,7 @@ void user_interface::student_interface()//TODO
 		}
 		default:
 		{
-			wrong_selection((int)error_code_Type::Subscript_out_of_bounds, wrong_selection_flag);
+			wrong_selection(static_cast<int>(error_code_Type::Subscript_out_of_bounds), wrong_selection_flag);
 			break;
 		}
 		}
@@ -284,51 +284,52 @@ void user_interface::add_manager()
 	bool stop_add_flag = false;
 	do
 	{
-		cout << "请输入用户名（管理员用户名必须以字母 a 开头）：";
-		cin >> username;
-		if (username[0] != 'a')
+		do
 		{
-			incorrect_username_format_flag = false;
-			stop_add_flag = add_information_failed((int)error_code_Type::Incorrect_username_format, incorrect_username_format_flag);
-		}
-		else
+			cout << "请输入用户名（管理员用户名必须以字母 a 开头）：";
+			cin >> username;
+			if (username[0] != 'a')
+			{
+				incorrect_username_format_flag = false;
+				stop_add_flag = add_information_failed(static_cast<int>(error_code_Type::Incorrect_username_format), incorrect_username_format_flag);
+			}
+			else
+			{
+				admin->change_username(username);
+				incorrect_username_format_flag = false;
+			}
+		} while (incorrect_username_format_flag);
+		if (stop_add_flag)
 		{
-			admin->change_username(std::move(username));
-			incorrect_username_format_flag = false;
+			break;
 		}
-	} while (incorrect_username_format_flag);
-	if (stop_add_flag)
-	{
-		delete admin;
-		return;
-	}
-	stop_add_flag = false;
-	bool inconsistent_passwords_flag = false;
-	do
-	{
-		cout << "请输入密码：";
-		std::string password1, password2;
-		cin >> password1;
-		cout << "请重复密码：";
-		cin >> password2;
-		if (password1 != password2)
+		stop_add_flag = false;
+		bool inconsistent_passwords_flag = false;
+		do
 		{
-			inconsistent_passwords_flag = false;
-			stop_add_flag = add_information_failed((int)error_code_Type::The_two_passwords_are_inconsistent, inconsistent_passwords_flag);
-		}
-		else
+			cout << "请输入密码：";
+			std::string password1, password2;
+			cin >> password1;
+			cout << "请重复密码：";
+			cin >> password2;
+			if (password1 != password2)
+			{
+				inconsistent_passwords_flag = false;
+				stop_add_flag = add_information_failed(static_cast<int>(error_code_Type::The_two_passwords_are_inconsistent), inconsistent_passwords_flag);
+			}
+			else
+			{
+				admin->change_password(password1);
+				inconsistent_passwords_flag = false;
+			}
+		} while (inconsistent_passwords_flag);
+		if (stop_add_flag)
 		{
-			admin->change_password(std::move(password1));
-			inconsistent_passwords_flag = false;
+			break;
 		}
-	} while (inconsistent_passwords_flag);
-	if (stop_add_flag)
-	{
-		delete admin;
-		return;
-	}
-	cout << "添加成功！" << endl;
-	AIM->add_manager(*admin);
+		cout << "添加成功！" << endl;
+		AIM->add_manager(*admin);
+	} while (false);
 	delete admin;
 }
 
@@ -339,5 +340,76 @@ void user_interface::add_student()
 
 void user_interface::add_teacher()
 {
-	//TODO
+	using std::cin, std::cout, std::endl;
+	teacher* tea = new teacher;
+	cout << endl
+		<< "======>>       添加教师       <<======" << endl << endl
+		<< "请在下方输入要添加的信息" << endl;
+
+	do
+	{
+		std::string actual_name;
+		bool stop_add_flag = false;
+		cout << "请输入教师姓名：";
+		cin >> actual_name;
+		tea->change_actual_name(actual_name);
+
+		bool inconsistent_passwords_flag = false;
+		do
+		{
+			cout << "请输入密码：";
+			std::string password1, password2;
+			cin >> password1;
+			cout << "请重复密码：";
+			cin >> password2;
+			if (password1 != password2)
+			{
+				inconsistent_passwords_flag = false;
+				stop_add_flag = add_information_failed(static_cast<int>(error_code_Type::The_two_passwords_are_inconsistent), inconsistent_passwords_flag);
+			}
+			else
+			{
+				tea->change_password(password1);
+				inconsistent_passwords_flag = false;
+			}
+		} while (inconsistent_passwords_flag);
+		if (stop_add_flag)
+		{
+			break;
+		}
+
+		int gender;
+		bool wrong_selection_flag = false;
+		do
+		{
+			cout << "请输入性别（0：男；1：女）：";
+			cin >> gender;
+			switch (gender)
+			{
+			case 0:
+			{
+				__fallthrough;
+			}
+			case 1:
+			{
+				wrong_selection_flag = false;
+				tea->change_gender(gender);
+				break;
+			}
+			default:
+			{
+				wrong_selection(static_cast<int>(error_code_Type::Subscript_out_of_bounds), wrong_selection_flag);
+				break;
+			}
+			}
+		} while (wrong_selection_flag);
+
+		std::string name = "t" + std::to_string((TIM->return_teacher_list_size()) + 1);
+		tea->change_username(name);
+		tea->change_nick_name(tea->return_username());
+
+		cout << "添加成功！" << endl;
+		TIM->add_teacher(*tea);
+	} while (false);
+	delete tea;
 }

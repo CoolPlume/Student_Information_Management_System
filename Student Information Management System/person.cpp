@@ -39,13 +39,7 @@ void person::change_password(const std::string& password)
 	this->password = password;
 }
 
-std::string person::passw()
+void person::change_nick_name(const std::string& nick_name)
 {
-	return password;
+	this->nick_name = nick_name;
 }
-
-void person::change(std::string a)
-{
-	this->password = a;
-}
-
