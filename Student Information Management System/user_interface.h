@@ -19,9 +19,11 @@ public:
 	void welcome();
 	void login();
 	void administrator_interface();
-	void teacher_interface();
-	void student_interface();
+	void teacher_interface(int);
+	void student_interface(int);
 	void add_manager();
 	void add_student();
 	void add_teacher();
+	void change_password(int);
+	void change_nick_name(int);
 };

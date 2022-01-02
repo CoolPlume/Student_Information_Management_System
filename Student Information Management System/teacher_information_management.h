@@ -17,4 +17,5 @@ public:
 	teacher return_currently_logged_in_teacher()const;
 	void add_teacher(const teacher&);
 	size_t return_teacher_list_size()const;
+	teacher* revise_currently_logged_in_teacher()const;
 };

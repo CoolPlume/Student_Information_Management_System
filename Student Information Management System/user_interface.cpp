@@ -1,6 +1,13 @@
 #pragma once
 #include "user_interface.h"
 
+enum class user_Type
+{
+	administrator = 1,
+	teacher = 2,
+	student = 3
+};
+
 user_interface::user_interface()
 {
 	SIM = new student_information_management;
@@ -74,7 +81,7 @@ void user_interface::login()
 			if (SIM->login_decision(username, password))
 			{
 				cout << "登录成功！" << endl;
-				student_interface();
+				student_interface(static_cast<int>(user_Type::student));
 			}
 			else
 			{
@@ -88,7 +95,7 @@ void user_interface::login()
 			if (TIM->login_decision(username, password))
 			{
 				cout << "登录成功！" << endl;
-				teacher_interface();
+				teacher_interface(static_cast<int>(user_Type::teacher));
 			}
 			else
 			{
@@ -125,7 +132,7 @@ void user_interface::administrator_interface()
 	cout << endl
 		<< "你好，管理员：" << AIM->return_currently_logged_in_administrator().return_username() << endl << endl;
 	system("pause");
-	do
+	do//UNDONE 面板跳转
 	{
 		cout << endl;
 		cout << "********************************************" << endl
@@ -135,7 +142,9 @@ void user_interface::administrator_interface()
 			<< "      *      [2]添加教师             *      " << endl
 			<< "      *      [3]添加学生             *      " << endl
 			<< "      *      [4]修改密码             *      " << endl
-			<< "      *      [5]新功能会在这里       *      " << endl
+			<< "      *      [5]切换教师面板         *      " << endl
+			<< "      *      [6]切换学生面板         *      " << endl
+			<< "      *      [7]新功能会在这里       *      " << endl
 			<< "      *      [0]退出                 *      " << endl
 			<< endl
 			<< "********************************************" << endl << endl;
@@ -144,7 +153,7 @@ void user_interface::administrator_interface()
 		int select;
 		do//UNDONE
 		{
-			cout << "请选择您的操作（0-5）：";
+			cout << "请选择您的操作（0-6）：";
 			cin >> select;
 			switch (select)
 			{
@@ -175,6 +184,19 @@ void user_interface::administrator_interface()
 			case 4:
 			{
 				wrong_selection_flag = false;
+				change_password(static_cast<int>(user_Type::administrator));
+				break;
+			}
+			case 5:
+			{
+				wrong_selection_flag = false;
+				teacher_interface(static_cast<int>(user_Type::administrator));
+				break;
+			}
+			case 6:
+			{
+				wrong_selection_flag = false;
+				student_interface(static_cast<int>(user_Type::administrator));
 				break;
 			}
 			default:
@@ -187,12 +209,16 @@ void user_interface::administrator_interface()
 	} while (true);
 }
 
-void user_interface::teacher_interface()//TODO
+void user_interface::teacher_interface(int user_type)//TODO
 {
 	using std::cin, std::cout, std::endl;
-	cout << endl
-		<< "你好，教师：" << TIM->return_currently_logged_in_teacher().return_nick_name() << endl << endl;
-	system("pause");
+	if (user_type == static_cast<int>(user_Type::teacher))
+	{
+		cout << endl
+			<< "你好，教师：" << TIM->return_currently_logged_in_teacher().return_nick_name() << endl << endl;
+		system("pause");
+	}
+
 	cout << endl;
 	cout << "********************************************" << endl
 		<< "======>>       教师操纵面板       <<======" << endl;
@@ -221,6 +247,34 @@ void user_interface::teacher_interface()//TODO
 			return;
 			break;
 		}
+		case 5:
+		{
+			wrong_selection_flag = false;
+			if (user_type != static_cast<int>(user_Type::teacher))
+			{
+				cout << "错误！请使用教师账户来进行此操作。" << endl;
+				system("pause");
+			}
+			else
+			{
+				change_password(static_cast<int>(user_Type::teacher));
+			}
+			break;
+		}
+		case 6:
+		{
+			wrong_selection_flag = false;
+			if (user_type != static_cast<int>(user_Type::teacher))
+			{
+				cout << "错误！请使用教师账户来进行此操作。" << endl;
+				system("pause");
+			}
+			else
+			{
+				change_nick_name(static_cast<int>(user_Type::teacher));
+			}
+			break;
+		}
 		default:
 		{
 			wrong_selection(static_cast<int>(error_code_Type::Subscript_out_of_bounds), wrong_selection_flag);
@@ -230,12 +284,16 @@ void user_interface::teacher_interface()//TODO
 	} while (wrong_selection_flag);
 }
 
-void user_interface::student_interface()//TODO
+void user_interface::student_interface(int user_type)//TODO
 {
 	using std::cin, std::cout, std::endl;
-	cout << endl
-		<< "你好，学生：" << SIM->return_currently_logged_in_student().return_nick_name() << endl << endl;
-	system("pause");
+	if (user_type == static_cast<int>(user_Type::student))
+	{
+		cout << endl
+			<< "你好，学生：" << SIM->return_currently_logged_in_student().return_nick_name() << endl << endl;
+		system("pause");
+	}
+
 	cout << endl;
 	cout << "********************************************" << endl
 		<< "======>>       学生操纵面板       <<======" << endl;
@@ -260,6 +318,35 @@ void user_interface::student_interface()//TODO
 		{
 			wrong_selection_flag = false;
 			return;
+			break;
+		}
+		case 3:
+		{
+			wrong_selection_flag = false;
+			if (user_type != static_cast<int>(user_Type::student))
+			{
+				cout << "错误！请使用学生账户来进行此操作。" << endl;
+				system("pause");
+			}
+			else
+			{
+				change_password(static_cast<int>(user_Type::student));
+			}
+			break;
+		}
+		case 4:
+		{
+			wrong_selection_flag = false;
+			wrong_selection_flag = false;
+			if (user_type != static_cast<int>(user_Type::student))
+			{
+				cout << "错误！请使用学生账户来进行此操作。" << endl;
+				system("pause");
+			}
+			else
+			{
+				change_nick_name(static_cast<int>(user_Type::student));
+			}
 			break;
 		}
 		default:
@@ -483,4 +570,90 @@ void user_interface::add_teacher()
 		TIM->add_teacher(*tea);
 	} while (false);
 	delete tea;
+}
+
+void user_interface::change_password(int user_type)
+{
+	using std::cin, std::cout, std::endl;
+	cout << endl
+		<< "======>>       修改密码       <<======" << endl << endl;
+	do
+	{
+		bool stop_add_flag = false;
+		bool inconsistent_passwords_flag = false;
+		do
+		{
+			cout << "请输入修改后的密码：";
+			std::string password1, password2;
+			cin >> password1;
+			cout << "请重复密码：";
+			cin >> password2;
+			if (password1 != password2)
+			{
+				inconsistent_passwords_flag = false;
+				stop_add_flag = add_information_failed(static_cast<int>(error_code_Type::The_two_passwords_are_inconsistent), inconsistent_passwords_flag);
+			}
+			else
+			{
+				switch(user_type)
+				{
+				case static_cast<int>(user_Type::administrator):
+				{
+					if (AIM->return_currently_logged_in_administrator().return_super_administrator() == true)
+					{
+						cout << "超级管理员不允许修改密码！" << endl;
+					}
+					else
+					{
+						AIM->revise_currently_logged_in_administrator()->change_password(password1);
+						cout << "修改成功！" << endl;
+					}
+					break;
+				}
+				case static_cast<int>(user_Type::teacher):
+				{
+					TIM->revise_currently_logged_in_teacher()->change_password(password1);
+					cout << "修改成功！" << endl;
+					break;
+				}
+				case static_cast<int>(user_Type::student):
+				{
+					SIM->revise_currently_logged_in_student()->change_password(password1);
+					cout << "修改成功！" << endl;
+					break;
+				}
+				}
+				inconsistent_passwords_flag = false;
+			}
+		} while (inconsistent_passwords_flag);
+		if (stop_add_flag)
+		{
+			cout << "取消修改！" << endl;
+			break;
+		}
+	} while (false);
+}
+
+void user_interface::change_nick_name(int user_type)
+{
+	using std::cin, std::cout, std::endl;
+	cout << endl
+		<< "======>>       修改昵称       <<======" << endl << endl;
+
+	std::string nick_name;
+	cout << "请输入修改后的昵称：";
+	cin >> nick_name;
+	switch(user_type)
+	{
+		case static_cast<int>(user_Type::teacher):
+		{
+			TIM->revise_currently_logged_in_teacher()->change_nick_name(nick_name);
+			break;
+		}
+		case static_cast<int>(user_Type::student):
+		{
+			SIM->revise_currently_logged_in_student()->change_nick_name(nick_name);
+			break;
+		}
+	}
 }

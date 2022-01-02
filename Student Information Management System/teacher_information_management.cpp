@@ -183,3 +183,8 @@ size_t teacher_information_management::return_teacher_list_size() const
 {
 	return teacher_list.size();
 }
+
+teacher* teacher_information_management::revise_currently_logged_in_teacher() const
+{
+	return currently_logged_in_teacher;
+}

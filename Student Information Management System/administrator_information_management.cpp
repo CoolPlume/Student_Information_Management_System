@@ -203,3 +203,8 @@ administrator administrator_information_management::return_currently_logged_in_a
 {
 	return administrator(*currently_logged_in_administrator);
 }
+
+administrator* administrator_information_management::revise_currently_logged_in_administrator() const
+{
+	return currently_logged_in_administrator;
+}

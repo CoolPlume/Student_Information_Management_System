@@ -183,3 +183,8 @@ size_t student_information_management::return_student_list_size() const
 {
 	return student_list.size();
 }
+
+student* student_information_management::revise_currently_logged_in_student() const
+{
+	return currently_logged_in_student;
+}
