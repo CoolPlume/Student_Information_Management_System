@@ -74,7 +74,7 @@ void user_interface::login()
 			if (SIM->login_decision(username, password))
 			{
 				cout << "登录成功！" << endl;
-				administrator_interface();
+				student_interface();
 			}
 			else
 			{
@@ -191,7 +191,7 @@ void user_interface::teacher_interface()//TODO
 {
 	using std::cin, std::cout, std::endl;
 	cout << endl
-		<< "你好，教师：" << AIM->return_currently_logged_in_administrator().return_username() << endl << endl;
+		<< "你好，教师：" << TIM->return_currently_logged_in_teacher().return_nick_name() << endl << endl;
 	system("pause");
 	cout << endl;
 	cout << "********************************************" << endl
@@ -234,7 +234,7 @@ void user_interface::student_interface()//TODO
 {
 	using std::cin, std::cout, std::endl;
 	cout << endl
-		<< "你好，学生：" << AIM->return_currently_logged_in_administrator().return_username() << endl << endl;
+		<< "你好，学生：" << SIM->return_currently_logged_in_student().return_nick_name() << endl << endl;
 	system("pause");
 	cout << endl;
 	cout << "********************************************" << endl
@@ -335,7 +335,78 @@ void user_interface::add_manager()
 
 void user_interface::add_student()
 {
-	//TODO
+	using std::cin, std::cout, std::endl;
+	student* stu = new student;
+	cout << endl
+		<< "======>>       添加学生       <<======" << endl << endl
+		<< "请在下方输入要添加的信息" << endl;
+
+	do
+	{
+		std::string actual_name;
+		bool stop_add_flag = false;
+		cout << "请输入学生姓名：";
+		cin >> actual_name;
+		stu->change_actual_name(actual_name);
+
+		bool inconsistent_passwords_flag = false;
+		do
+		{
+			cout << "请输入密码：";
+			std::string password1, password2;
+			cin >> password1;
+			cout << "请重复密码：";
+			cin >> password2;
+			if (password1 != password2)
+			{
+				inconsistent_passwords_flag = false;
+				stop_add_flag = add_information_failed(static_cast<int>(error_code_Type::The_two_passwords_are_inconsistent), inconsistent_passwords_flag);
+			}
+			else
+			{
+				stu->change_password(password1);
+				inconsistent_passwords_flag = false;
+			}
+		} while (inconsistent_passwords_flag);
+		if (stop_add_flag)
+		{
+			break;
+		}
+
+		int gender;
+		bool wrong_selection_flag = false;
+		do
+		{
+			cout << "请输入性别（0：男；1：女）：";
+			cin >> gender;
+			switch (gender)
+			{
+			case 0:
+			{
+				__fallthrough;
+			}
+			case 1:
+			{
+				wrong_selection_flag = false;
+				stu->change_gender(gender);
+				break;
+			}
+			default:
+			{
+				wrong_selection(static_cast<int>(error_code_Type::Subscript_out_of_bounds), wrong_selection_flag);
+				break;
+			}
+			}
+		} while (wrong_selection_flag);
+
+		const std::string name = "S" + std::to_string((SIM->return_student_list_size()) + 1);
+		stu->change_username(name);
+		stu->change_nick_name(stu->return_username());
+
+		cout << "添加成功！" << endl;
+		SIM->add_student(*stu);
+	} while (false);
+	delete stu;
 }
 
 void user_interface::add_teacher()
@@ -404,7 +475,7 @@ void user_interface::add_teacher()
 			}
 		} while (wrong_selection_flag);
 
-		std::string name = "t" + std::to_string((TIM->return_teacher_list_size()) + 1);
+		const std::string name = "T" + std::to_string((TIM->return_teacher_list_size()) + 1);
 		tea->change_username(name);
 		tea->change_nick_name(tea->return_username());
 

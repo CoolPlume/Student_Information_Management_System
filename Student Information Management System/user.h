@@ -20,4 +20,5 @@ public:
 	void change_gender(int);
 	int return_gender()const;
 	void change_actual_name(const std::string&);
+	std::string return_actual_name()const;
 };

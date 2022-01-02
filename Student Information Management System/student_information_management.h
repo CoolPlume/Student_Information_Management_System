@@ -16,4 +16,5 @@ public:
 	bool login_decision(const std::string&, const std::string&);
 	student return_currently_logged_in_student()const;
 	void add_student(const student&);
+	size_t return_student_list_size()const;
 };

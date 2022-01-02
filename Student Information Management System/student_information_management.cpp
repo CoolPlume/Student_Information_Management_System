@@ -7,7 +7,9 @@ std::vector <std::string> student_storage_field_description =
 	"Username:",
 	"Password:",
 	"Gender:",
-	"END"
+	"END",
+	"Actual_name:",
+	"Nick_name:",
 };
 
 enum class student_storage_field_Type
@@ -16,7 +18,9 @@ enum class student_storage_field_Type
 	Username = 1,
 	Password = 2,
 	Gender = 3,
-	END = 4
+	END = 4,
+	Actual_name = 5,
+	Nick_name = 6,
 };
 
 std::map <std::string, int> student_storage_field_Map
@@ -25,7 +29,9 @@ std::map <std::string, int> student_storage_field_Map
 	{"Username:",1},
 	{"Password:",2},
 	{"Gender:",3},
-	{"END",4}
+	{"END",4},
+	{"Actual_name:",5},
+	{"Nick_name:",6},
 };
 
 enum class login_decision_return_code_Type
@@ -81,6 +87,18 @@ student_information_management::student_information_management()
 					stu->change_gender(std::stoi(*judge));
 					break;
 				}
+				case static_cast<int>(student_storage_field_Type::Actual_name):
+				{
+					read_local_date >> *judge;
+					stu->change_actual_name(*judge);
+					break;
+				}
+				case static_cast<int>(student_storage_field_Type::Nick_name):
+				{
+					read_local_date >> *judge;
+					stu->change_nick_name(*judge);
+					break;
+				}
 				case static_cast<int>(student_storage_field_Type::END):
 				{
 					student_list.push_back(*stu);
@@ -116,6 +134,8 @@ student_information_management::~student_information_management()
 			write_local_data << student_storage_field_description[static_cast<int>(student_storage_field_Type::Username)] << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)] << stu->return_username() << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)]
 				<< student_storage_field_description[static_cast<int>(student_storage_field_Type::Password)] << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)] << stu->return_password() << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)]
 				<< student_storage_field_description[static_cast<int>(student_storage_field_Type::Gender)] << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)] << stu->return_gender() << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)]
+				<< student_storage_field_description[static_cast<int>(student_storage_field_Type::Actual_name)] << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)] << stu->return_actual_name() << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)]
+				<< student_storage_field_description[static_cast<int>(student_storage_field_Type::Nick_name)] << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)] << stu->return_nick_name() << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)]
 				<< student_storage_field_description[static_cast<int>(student_storage_field_Type::END)] << std::endl;
 			delete stu;
 		}
@@ -157,4 +177,9 @@ student student_information_management::return_currently_logged_in_student() con
 void student_information_management::add_student(const student& stu)
 {
 	student_list.push_back(stu);
+}
+
+size_t student_information_management::return_student_list_size() const
+{
+	return student_list.size();
 }

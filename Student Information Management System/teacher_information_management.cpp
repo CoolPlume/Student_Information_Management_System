@@ -7,9 +7,9 @@ std::vector <std::string> teacher_storage_field_description =
 	"Username:",
 	"Password:",
 	"Gender:",
-	"END"
-	"Actual_name:"
-	"Nick_name:"
+	"END",
+	"Actual_name:",
+	"Nick_name:",
 };
 
 enum class teacher_storage_field_Type
@@ -87,6 +87,18 @@ teacher_information_management::teacher_information_management()
 					tea->change_gender(std::stoi(*judge));
 					break;
 				}
+				case static_cast<int>(teacher_storage_field_Type::Actual_name):
+				{
+					read_local_date >> *judge;
+					tea->change_actual_name(*judge);
+					break;
+				}
+				case static_cast<int>(teacher_storage_field_Type::Nick_name):
+				{
+					read_local_date >> *judge;
+					tea->change_nick_name(*judge);
+					break;
+				}
 				case static_cast<int>(teacher_storage_field_Type::END):
 				{
 					teacher_list.push_back(*tea);
@@ -122,6 +134,8 @@ teacher_information_management::~teacher_information_management()
 			write_local_data << teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Username)] << teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Space)] << tea->return_username() << teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Space)]
 				<< teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Password)] << teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Space)] << tea->return_password() << teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Space)]
 				<< teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Gender)] << teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Space)] << tea->return_gender() << teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Space)]
+				<< teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Actual_name)] << teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Space)] << tea->return_actual_name() << teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Space)]
+				<< teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Nick_name)] << teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Space)] << tea->return_nick_name() << teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Space)]
 				<< teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::END)] << std::endl;
 			delete tea;
 		}
@@ -136,7 +150,7 @@ teacher_information_management::~teacher_information_management()
 
 bool teacher_information_management::login_decision(const std::string& username, const std::string& password)
 {
-	bool return_code = 0;
+	bool return_code = false;
 	auto i = teacher_list.begin();
 	for (i; i != teacher_list.end(); ++i)
 	{
@@ -165,7 +179,7 @@ void teacher_information_management::add_teacher(const teacher& tea)
 	teacher_list.push_back(tea);
 }
 
-int teacher_information_management::return_teacher_list_size() const
+size_t teacher_information_management::return_teacher_list_size() const
 {
 	return teacher_list.size();
 }

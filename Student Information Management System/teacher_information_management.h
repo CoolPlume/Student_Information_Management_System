@@ -16,5 +16,5 @@ public:
 	bool login_decision(const std::string&, const std::string&);
 	teacher return_currently_logged_in_teacher()const;
 	void add_teacher(const teacher&);
-	int return_teacher_list_size()const;
+	size_t return_teacher_list_size()const;
 };

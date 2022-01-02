@@ -10,6 +10,11 @@ std::string person::return_password()const
 	return password;
 }
 
+std::string person::return_nick_name() const
+{
+	return nick_name;
+}
+
 person::person()
 {
 	username = "None";
