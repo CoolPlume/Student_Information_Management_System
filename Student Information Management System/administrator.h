@@ -10,7 +10,7 @@ public:
 	administrator();
 	administrator(const std::string&, const std::string&, bool);
 	virtual ~administrator();
-	void change_super_administrator(bool);
-	bool return_super_administrator()const;
+	[[noreturn]] void change_super_administrator(bool);
+	[[nodiscard]] bool return_super_administrator()const;
 	administrator(const administrator&);
 };

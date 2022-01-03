@@ -169,22 +169,22 @@ bool teacher_information_management::login_decision(const std::string& username,
 	return return_code;
 }
 
-teacher teacher_information_management::return_currently_logged_in_teacher() const
+[[nodiscard]] teacher teacher_information_management::return_currently_logged_in_teacher() const
 {
 	return *currently_logged_in_teacher;
 }
 
-void teacher_information_management::add_teacher(const teacher& tea)
+[[noreturn]] void teacher_information_management::add_teacher(const teacher& tea)
 {
 	teacher_list.push_back(tea);
 }
 
-size_t teacher_information_management::return_teacher_list_size() const
+[[nodiscard]] size_t teacher_information_management::return_teacher_list_size() const
 {
 	return teacher_list.size();
 }
 
-teacher* teacher_information_management::revise_currently_logged_in_teacher() const
+[[nodiscard]] teacher* teacher_information_management::revise_currently_logged_in_teacher() const
 {
 	return currently_logged_in_teacher;
 }

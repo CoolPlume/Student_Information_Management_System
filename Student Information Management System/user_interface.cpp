@@ -17,8 +17,8 @@ user_interface::user_interface()
 
 user_interface::~user_interface()
 {
+	//delete TIM;
 	delete SIM;
-	delete TIM;
 	delete AIM;
 }
 

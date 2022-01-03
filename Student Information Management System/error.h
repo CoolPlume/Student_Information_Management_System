@@ -13,8 +13,8 @@ enum class error_code_Type
 	Incorrect_username_format = 7
 };
 
-void initialization_failed(int);
-void save_failed(int);
-void wrong_selection(int, bool&);
-void login_failed(int, bool&);
+[[noreturn]] void initialization_failed(int);
+[[noreturn]] void save_failed(int);
+[[noreturn]] void wrong_selection(int, bool&);
+[[noreturn]] void login_failed(int, bool&);
 bool add_information_failed(int, bool&);

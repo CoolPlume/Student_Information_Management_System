@@ -19,9 +19,10 @@ public:
 	user();
 	virtual ~user();
 	user(const user&);
-	void change_gender(int);
-	int return_gender()const;
-	void change_actual_name(const std::string&);
-	std::string return_actual_name()const;
-	course_information_management* revise_course_information_management()const;
+	[[noreturn]] void change_gender(int);
+	[[nodiscard]] int return_gender()const;
+	[[noreturn]] void change_actual_name(const std::string&);
+	[[nodiscard]] std::string return_actual_name()const;
+	[[nodiscard]] course_information_management* revise_course_information_management()const;
+	[[nodiscard]] course_information_management return_course_information_management()const;
 };

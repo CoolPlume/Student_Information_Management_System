@@ -199,12 +199,12 @@ bool administrator_information_management::login_decision(const std::string& use
 	return return_code;
 }
 
-administrator administrator_information_management::return_currently_logged_in_administrator() const
+[[nodiscard]] administrator administrator_information_management::return_currently_logged_in_administrator() const
 {
 	return administrator(*currently_logged_in_administrator);
 }
 
-administrator* administrator_information_management::revise_currently_logged_in_administrator() const
+[[nodiscard]] administrator* administrator_information_management::revise_currently_logged_in_administrator() const
 {
 	return currently_logged_in_administrator;
 }

@@ -10,6 +10,17 @@ std::vector <std::string> student_storage_field_description =
 	"END",
 	"Actual_name:",
 	"Nick_name:",
+	"Chinese:",
+	"Mathematics:",
+	"Foreign_language:",
+	"Politics:",
+	"History:",
+	"Geography:",
+	"Physics:",
+	"Chemical:",
+	"Biology:",
+	"Information_technology:",
+	"Common_technology:",
 };
 
 enum class student_storage_field_Type
@@ -21,6 +32,17 @@ enum class student_storage_field_Type
 	END = 4,
 	Actual_name = 5,
 	Nick_name = 6,
+	Chinese = 7,
+	Mathematics = 8,
+	Foreign_language = 9,
+	Politics = 10,
+	History = 11,
+	Geography = 12,
+	Physics = 13,
+	Chemical = 14,
+	Biology = 15,
+	Information_technology = 16,
+	Common_technology = 17,
 };
 
 std::map <std::string, int> student_storage_field_Map
@@ -32,6 +54,17 @@ std::map <std::string, int> student_storage_field_Map
 	{"END",4},
 	{"Actual_name:",5},
 	{"Nick_name:",6},
+	{"Chinese:",7},
+	{"Mathematics:",8},
+	{"Foreign_language:",9},
+	{"Politics:",10},
+	{"History:",11},
+	{"Geography:",12},
+	{"Physics:",13},
+	{"Chemical:",14},
+	{"Biology:",15},
+	{"Information_technology:",16},
+	{"Common_technology:",17},
 };
 
 enum class login_decision_return_code_Type
@@ -136,6 +169,7 @@ student_information_management::~student_information_management()
 				<< student_storage_field_description[static_cast<int>(student_storage_field_Type::Gender)] << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)] << stu->return_gender() << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)]
 				<< student_storage_field_description[static_cast<int>(student_storage_field_Type::Actual_name)] << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)] << stu->return_actual_name() << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)]
 				<< student_storage_field_description[static_cast<int>(student_storage_field_Type::Nick_name)] << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)] << stu->return_nick_name() << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)]
+				<< student_storage_field_description[static_cast<int>(student_storage_field_Type::Chinese)] << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)] << stu->return_course_information_management().return_the_selection_status(static_cast<int>(course_Type::chinese)) << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)] << stu->return_course_information_management().return_course_results(static_cast<int>(course_Type::chinese)) << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)]
 				<< student_storage_field_description[static_cast<int>(student_storage_field_Type::END)] << std::endl;
 			delete stu;
 		}
@@ -169,27 +203,27 @@ bool student_information_management::login_decision(const std::string& username,
 	return return_code;
 }
 
-student student_information_management::return_currently_logged_in_student() const
+[[nodiscard]] student student_information_management::return_currently_logged_in_student() const
 {
 	return *currently_logged_in_student;
 }
 
-void student_information_management::add_student(const student& stu)
+[[noreturn]] void student_information_management::add_student(const student& stu)
 {
 	student_list.push_back(stu);
 }
 
-size_t student_information_management::return_student_list_size() const
+[[nodiscard]] size_t student_information_management::return_student_list_size() const
 {
 	return student_list.size();
 }
 
-student* student_information_management::revise_currently_logged_in_student() const
+[[nodiscard]] student* student_information_management::revise_currently_logged_in_student() const
 {
 	return currently_logged_in_student;
 }
 
-student* student_information_management::find_student(const std::string& username) const
+[[nodiscard]] student* student_information_management::find_student(const std::string& username) const
 {
 	student* stu = nullptr;
 	for (const auto& i : student_list)

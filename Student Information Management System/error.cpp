@@ -1,6 +1,6 @@
 #include "error.h"
 
-void initialization_failed(int error_code)
+[[noreturn]] void initialization_failed(int error_code)
 {
 	using std::cerr, std::endl;
 	cerr << endl;
@@ -23,7 +23,7 @@ void initialization_failed(int error_code)
 	exit(1);
 }
 
-void save_failed(int error_code)
+[[noreturn]] void save_failed(int error_code)
 {
 	using std::cerr, std::endl;
 	cerr << endl;
@@ -41,7 +41,7 @@ void save_failed(int error_code)
 	exit(1);
 }
 
-void wrong_selection(int error_code, bool& flag)
+[[noreturn]] void wrong_selection(int error_code, bool& flag)
 {
 	using std::cerr, std::endl;
 	cerr << endl;
@@ -59,7 +59,7 @@ void wrong_selection(int error_code, bool& flag)
 	system("pause");
 }
 
-void login_failed(int error_code, bool& flag)
+[[noreturn]] void login_failed(int error_code, bool& flag)
 {
 	using std::cerr, std::endl;
 	cerr << endl;

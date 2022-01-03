@@ -1,16 +1,16 @@
 #include "person.h"
 
-std::string person::return_username()const
+[[nodiscard]] std::string person::return_username()const
 {
 	return username;
 }
 
-std::string person::return_password()const
+[[nodiscard]] std::string person::return_password()const
 {
 	return password;
 }
 
-std::string person::return_nick_name() const
+[[nodiscard]] std::string person::return_nick_name() const
 {
 	return nick_name;
 }
@@ -34,17 +34,17 @@ person::person(const person& per)
 	this -> nick_name = per.nick_name;
 }
 
-void person::change_username(const std::string& username)
+[[noreturn]] void person::change_username(const std::string& username)
 {
 	this->username = username;
 }
 
-void person::change_password(const std::string& password)
+[[noreturn]] void person::change_password(const std::string& password)
 {
 	this->password = password;
 }
 
-void person::change_nick_name(const std::string& nick_name)
+[[noreturn]] void person::change_nick_name(const std::string& nick_name)
 {
 	this->nick_name = nick_name;
 }

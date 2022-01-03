@@ -27,10 +27,10 @@ protected:
 
 public:
 	course();
-	virtual ~course();
-	void change_the_selection_status(bool);
-	bool return_the_selection_status()const;
-	int return_course_results()const;
+	~course();
+	[[noreturn]] void change_the_selection_status(bool);
+	[[nodiscard]] bool return_the_selection_status()const;
+	[[nodiscard]] int return_course_results()const;
 };
 
 constexpr int main_subject_full_score = 150;

@@ -19,28 +19,33 @@ user::user(const user& user) :person(user)
 	this->actual_name = user.actual_name;
 }
 
-void user::change_gender(int gender)
+[[noreturn]] void user::change_gender(int gender)
 {
 	this->gender = gender;
 }
 
-int user::return_gender() const
+[[nodiscard]] int user::return_gender() const
 {
 	return gender;
 }
 
-void user::change_actual_name(const std::string& actual_name)
+[[noreturn]] void user::change_actual_name(const std::string& actual_name)
 {
 	this->actual_name = actual_name;
 }
 
-std::string user::return_actual_name() const
+[[nodiscard]] std::string user::return_actual_name() const
 {
 	return actual_name;
 }
 
-course_information_management* user::revise_course_information_management() const
+[[nodiscard]] course_information_management* user::revise_course_information_management() const
 {
 	return CIM;
+}
+
+[[nodiscard]] course_information_management user::return_course_information_management() const
+{
+	return course_information_management(*CIM);
 }
 

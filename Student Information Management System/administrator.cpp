@@ -17,12 +17,12 @@ administrator::~administrator()
 
 }
 
-void administrator::change_super_administrator(bool super_administrator)
+[[noreturn]] void administrator::change_super_administrator(bool super_administrator)
 {
 	this -> super_administrator = super_administrator;
 }
 
-bool administrator::return_super_administrator()const
+[[nodiscard]] bool administrator::return_super_administrator()const
 {
 	return super_administrator;
 }

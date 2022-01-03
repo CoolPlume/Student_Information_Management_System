@@ -20,7 +20,7 @@ int course_information_management::return_total_score()
 	return total_score;
 }
 
-void course_information_management::change_the_selection_status(int subject, bool state)
+[[noreturn]] void course_information_management::change_the_selection_status(int subject, bool state)
 {
 	if (subject == 11)
 	{
@@ -31,4 +31,14 @@ void course_information_management::change_the_selection_status(int subject, boo
 	{
 		course_list[subject].change_the_selection_status(state);
 	}
+}
+
+[[nodiscard]] int course_information_management::return_course_results(int subject) const
+{
+	return course_list[subject].return_course_results();
+}
+
+[[nodiscard]] bool course_information_management::return_the_selection_status(int subject) const
+{
+	return course_list[subject].return_the_selection_status();
 }

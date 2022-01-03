@@ -12,6 +12,8 @@ protected:
 public:
 	course_information_management();
 	int return_total_score();
-	void change_the_selection_status(int, bool);
+	[[noreturn]] void change_the_selection_status(int, bool);
+	[[nodiscard]] int return_course_results(int)const;
+	[[nodiscard]] bool return_the_selection_status(int)const;
 };
 
