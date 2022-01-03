@@ -17,7 +17,7 @@ protected:
 	
 public:
 	user();
-	virtual ~user();
+	~user();
 	user(const user&);
 	[[noreturn]] void change_gender(int);
 	[[nodiscard]] int return_gender()const;

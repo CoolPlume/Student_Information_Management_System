@@ -163,7 +163,7 @@ student_information_management::~student_information_management()
 	{
 		for (const auto& i : student_list)
 		{
-			student* stu = new student(i);
+			const student* stu = new student(i);
 			write_local_data << student_storage_field_description[static_cast<int>(student_storage_field_Type::Username)] << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)] << stu->return_username() << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)]
 				<< student_storage_field_description[static_cast<int>(student_storage_field_Type::Password)] << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)] << stu->return_password() << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)]
 				<< student_storage_field_description[static_cast<int>(student_storage_field_Type::Gender)] << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)] << stu->return_gender() << student_storage_field_description[static_cast<int>(student_storage_field_Type::Space)]
@@ -188,7 +188,7 @@ bool student_information_management::login_decision(const std::string& username,
 	auto i = student_list.begin();
 	for (i; i != student_list.end(); ++i)
 	{
-		student* stu = new student(*i);
+		const student* stu = new student(*i);
 		if ((stu->return_username() == username) && (stu->return_password() == password))
 		{
 			return_code = static_cast<int>(login_decision_return_code_Type::login_successful);

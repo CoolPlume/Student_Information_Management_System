@@ -130,7 +130,7 @@ teacher_information_management::~teacher_information_management()
 	{
 		for (const auto& i : teacher_list)
 		{
-			teacher* tea = new teacher(i);
+			const teacher* tea = new teacher(i);
 			write_local_data << teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Username)] << teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Space)] << tea->return_username() << teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Space)]
 				<< teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Password)] << teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Space)] << tea->return_password() << teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Space)]
 				<< teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Gender)] << teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Space)] << tea->return_gender() << teacher_storage_field_description[static_cast<int>(teacher_storage_field_Type::Space)]

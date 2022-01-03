@@ -17,8 +17,8 @@ user_interface::user_interface()
 
 user_interface::~user_interface()
 {
-	//delete TIM;
 	delete SIM;
+	delete TIM;
 	delete AIM;
 }
 
@@ -354,15 +354,7 @@ void user_interface::student_interface(int user_type)//TODO
 		case 5:
 		{
 			wrong_selection_flag = false;
-			if (user_type != static_cast<int>(user_Type::student))
-			{
-				cout << "错误！请使用学生账户来进行此操作。" << endl;
-				system("pause");
-			}
-			else
-			{
-				select_subjects(user_type);
-			}
+			select_subjects(user_type);
 			break;
 		}
 		default:

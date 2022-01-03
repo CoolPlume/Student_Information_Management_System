@@ -3,7 +3,7 @@
 user::user()
 {
 	gender = NULL;
-	CIM = new course_information_management;
+	CIM = new course_information_management();
 }
 
 user::~user()

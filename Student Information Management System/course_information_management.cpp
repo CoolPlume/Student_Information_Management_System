@@ -2,9 +2,18 @@
 
 course_information_management::course_information_management()
 {
+	for(auto& i:course_list)
+	{
+		i = course();
+	}
 	course_list[static_cast<int>(course_Type::chinese)].change_the_selection_status(true);
 	course_list[static_cast<int>(course_Type::mathematics)].change_the_selection_status(true);
 	course_list[static_cast<int>(course_Type::foreign_language)].change_the_selection_status(true);
+}
+
+course_information_management::~course_information_management()
+{
+
 }
 
 int course_information_management::return_total_score() 
@@ -24,8 +33,8 @@ int course_information_management::return_total_score()
 {
 	if (subject == 11)
 	{
-		course_list[static_cast<int>(course_Type::information_technology)].change_the_selection_status(state);
 		course_list[static_cast<int>(course_Type::common_technology)].change_the_selection_status(state);
+		course_list[static_cast<int>(course_Type::information_technology)].change_the_selection_status(state);
 	}
 	else
 	{
